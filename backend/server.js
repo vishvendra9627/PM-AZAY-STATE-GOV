@@ -9,7 +9,7 @@ const taskRoutes = require("./routes/tasks");
 const overviewRoutes = require('./routes/overview');
 const bankAccountRoutes = require("./routes/bankAccount");
 const authRoutes = require('./routes/auth');
-
+const assignRoutes = require('./routes/assign');
 const app = express();
 
 const mongoURI = process.env.MONGO_URI;
@@ -29,5 +29,7 @@ app.use("/tasks", taskRoutes);
 app.use('/overview', overviewRoutes);
 app.use("/bank-account", bankAccountRoutes)
 app.use('/api/auth', authRoutes);
+app.use('/assign', assignRoutes);
+
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

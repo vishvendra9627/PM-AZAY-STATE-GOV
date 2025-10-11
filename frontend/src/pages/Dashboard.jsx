@@ -89,7 +89,7 @@ function App() {
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-100 to-blue-100 px-6 pt-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {/* Your cards */}
-          <ClickableCard title="Overview" description="Check the details..." destination="/overview" />
+          <ClickableCard title="Villages" description="Check the details..." destination="/overview" />
           <ClickableCard title="NGO Directory Page" description="See the available NGO..." destination="/ngos" />
           <ClickableCard title="Monitoring Page" description="How much task has been done..." destination="/tasks" />
           <ClickableCard title="Public view" description="The transparency page..." destination="/dashboard/details4" />
