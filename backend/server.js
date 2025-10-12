@@ -12,6 +12,7 @@ const bankAccountRoutes = require("./routes/bankAccount");
 const authRoutes = require('./routes/auth');
 const assignRoutes = require('./routes/assign');
 const VillageSchema = require("./models/village.js");
+const progressRoutes = require('./routes/progressRoutes');
 // const villageRoutes = require("./routes/villageRoutes");
 
 const app = express();
@@ -42,6 +43,19 @@ villageConnection.on("error", (err) => {
 
 const Village = villageConnection.model("Village", VillageSchema);
 
+//report database
+const thirdConnection = mongoose.createConnection(process.env.MONGO_URI3, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+thirdConnection.on("connected", () => {
+  console.log("✅ MongoDB connected (Third DB)");
+});
+
+thirdConnection.on("error", (err) => {
+  console.error("❌ Third DB error:", err);
+});
 
 app.get("/api/villages", async (req, res) => {
   try {
@@ -73,6 +87,7 @@ app.use('/overview', overviewRoutes);
 app.use("/bank-account", bankAccountRoutes)
 app.use('/api/auth', authRoutes);
 app.use('/assign', assignRoutes);
+app.use("/api/progress", progressRoutes);
 // app.use("/village", villageRoutes);
 
 // Start server

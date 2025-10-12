@@ -92,7 +92,7 @@ function App() {
           <ClickableCard title="Villages" description="Check the details..." destination="/overview" />
           <ClickableCard title="NGO Directory Page" description="See the available NGO..." destination="/ngos" />
           <ClickableCard title="Monitoring Page" description="How much task has been done..." destination="/tasks" />
-          <ClickableCard title="Public view" description="The transparency page..." destination="/dashboard/details4" />
+          <ClickableCard title="Progress" description="take a look of progress..." destination="/progress" />
         </div>
         {/* Add below the grid */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-4 gap-6">

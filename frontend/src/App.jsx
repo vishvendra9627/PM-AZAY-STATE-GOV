@@ -8,6 +8,8 @@ import NgoDirectoryPage from './pages/NgoDirectoryPage';
 import MonitoringPage from "./pages/MonitoringPage.jsx";
 import OverviewPage from "./pages/OverviewPage.jsx";
 import FundsMenuCard from "./pages/FundsMenuCard.jsx";
+import Progress from "./pages/Progress.jsx";
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +22,7 @@ function App() {
         <Route path="/tasks" element={<MonitoringPage/>}/>
         <Route path="/overview" element={<OverviewPage/>}/>
         <Route path="/funds" element={<FundsMenuCard accountId="12345"/>}/>
+        <Route path="/progress" element={<Progress />} />
       </Routes>
     </BrowserRouter>
   );
