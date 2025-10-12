@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -10,6 +11,9 @@ const overviewRoutes = require('./routes/overview');
 const bankAccountRoutes = require("./routes/bankAccount");
 const authRoutes = require('./routes/auth');
 const assignRoutes = require('./routes/assign');
+const VillageSchema = require("./models/village.js");
+// const villageRoutes = require("./routes/villageRoutes");
+
 const app = express();
 
 const mongoURI = process.env.MONGO_URI;
@@ -23,6 +27,45 @@ mongoose.connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
+   const villageConnection = mongoose.createConnection(process.env.MONGO_URI2, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+villageConnection.on("connected", () => {
+  console.log("✅ MongoDB connected (Village DB)");
+});
+
+villageConnection.on("error", (err) => {
+  console.error("❌ Village DB error:", err);
+});
+
+const Village = villageConnection.model("Village", VillageSchema);
+
+
+app.get("/api/villages", async (req, res) => {
+  try {
+    const villages = await Village.find();
+     const fundAllocations = villages.flatMap((village) =>
+      (village.fundAllocations || []).map((fund) => ({
+        villageID: village.villageID,
+        villageName: village.villageName,
+        district: village.district,
+        state: village.state,
+        amount: fund.amount,
+        allocatedBy: fund.allocatedBy,
+        allocatedAt: fund.allocatedAt,
+      }))
+    );
+
+    return res.status(200).json({ data: fundAllocations });
+  } catch (err) {
+    console.error("Error fetching villages:", err);
+    res.status(500).json({ error: "Failed to fetch villages" });
+  }
+});
+
+
 // Routes registration
 app.use('/ngos', ngoRoutes);
 app.use("/tasks", taskRoutes);
@@ -30,6 +73,7 @@ app.use('/overview', overviewRoutes);
 app.use("/bank-account", bankAccountRoutes)
 app.use('/api/auth', authRoutes);
 app.use('/assign', assignRoutes);
+// app.use("/village", villageRoutes);
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
