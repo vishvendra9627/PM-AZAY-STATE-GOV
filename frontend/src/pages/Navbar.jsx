@@ -46,7 +46,7 @@ function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           className="text-indigo-800 text-xl font-bold cursor-pointer"
         >
-          PM-AJAY
+          NGO-REPORTS
         </button>
 
         {menuOpen && (

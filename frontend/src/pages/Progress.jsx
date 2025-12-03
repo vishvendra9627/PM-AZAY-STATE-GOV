@@ -17,7 +17,7 @@ function ProgressDashboard() {
 const email = localStorage.getItem("email");
 console.log(email)
   useEffect(() => {
-  fetch(`http://localhost:4000/api/progress/user/${email}`)
+  fetch(`http://localhost:4000/api/progress`)
     .then((res) => res.json())
     .then((resData) => {
       if (resData.data) {

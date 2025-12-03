@@ -28,7 +28,7 @@ mongoose.connect(mongoURI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 
-   const villageConnection = mongoose.createConnection(process.env.MONGO_URI2, {
+   const villageConnection = mongoose.createConnection(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -48,15 +48,12 @@ const thirdConnection = mongoose.createConnection(process.env.MONGO_URI3, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
 thirdConnection.on("connected", () => {
   console.log("✅ MongoDB connected (Third DB)");
 });
-
 thirdConnection.on("error", (err) => {
   console.error("❌ Third DB error:", err);
 });
-
 app.get("/api/villages", async (req, res) => {
   try {
     const villages = await Village.find();
@@ -78,8 +75,6 @@ app.get("/api/villages", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch villages" });
   }
 });
-
-
 // Routes registration
 app.use('/ngos', ngoRoutes);
 app.use("/tasks", taskRoutes);
